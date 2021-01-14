@@ -1,0 +1,59 @@
+#!/usr/bin/perl -w
+
+use Munin::Plugin;
+use LWP;
+use JSON;
+
+# Set GALACTUS_HOST and GALACTUS_EXTERNAL_PORT
+my $path = $ENV{'GALACTUS_ENDPOINT'} || 'http://localhost:8123';
+
+if ($ARGV[0]){
+	if ($ARGV[0] eq 'autoconf') {
+		print "no\n";
+		exit 0;
+	}
+	
+	if ($ARGV[0] eq "config"){
+		print "multigraph automuteus_active\n";
+		print "graph_title AutoMuteUs Active Counts\n";
+		print "graph_order activeConnections activeGames\n";
+		print "graph_vlabel count\n";
+		print "graph_category automuteus\n";
+		print "activeConnections.label Active Connections\n";
+		print "activeGames.label Active Games\n";
+		# ---
+		print "multigraph automuteus_total\n";
+		print "graph_title AutoMuteUs Total Counts\n";
+		print "graph_order totalGames totalGuilds totalUsers\n";
+		print "graph_vlabel count\n";
+		print "graph_category automuteus\n";
+		print "totalGames.label Total Games\n";
+		print "totalGuilds.label Total Guilds\n";
+		print "totalUsers.label Total Users\n";
+		exit 0;
+	}
+}
+
+my $ua = LWP::UserAgent->new;
+my $req = HTTP::Request->new(GET => $path);
+my $res = $ua->request($req);
+
+if ($res->is_error()){
+	print STDERR $res->message();
+	exit 1;
+}
+
+$json = JSON->new()->decode($res->content());
+
+print "multigraph automuteus_active\n";
+print "activeConnections.value $json->{activeConnections}\n";
+print "activeGames.value $json->{activeGames}\n";
+
+print "multigraph automuteus_total\n";
+print "totalGames.value $json->{totalGames}\n";
+print "totalGuilds.value $json->{totalGuilds}\n";
+print "totalUsers.value $json->{totalUsers}\n";
+
+exit 0;
+
+# vim:syntax=perl
