@@ -3,6 +3,11 @@ A logging plugin for [AutoMuteUs](https://github.com/denverquane/automuteus).
 
 This is not intended to collect data from Prometheus endpoint (port 2112) including discord API call counts.
 
+## Requirements
+- Perl
+- LWP
+- JSON
+
 ## Installation
 1. Clone this repository
 1. Put `automuteus` file into /etc/munin/plugins/ directory
