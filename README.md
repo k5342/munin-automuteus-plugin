@@ -15,7 +15,7 @@ This is not intended to collect data from Prometheus endpoint (port 2112) includ
 1. Reload munin-node to complete installation
 
 ## Configuration
-Set `GALACTUS_ENDPOINT` environment variable to point your AutoMuteUs (Galactus) instance. You can customize this based on your settings based on `GALACTUS_HOST` and `GALACTUS_EXTERNAL_PORT` in [sample.env](https://github.com/denverquane/automuteus/blob/master/sample.env).
+Set `GALACTUS_ENDPOINT` environment variable to point your AutoMuteUs (Galactus) instance. You can customize this based on your settings; `GALACTUS_HOST` and `GALACTUS_EXTERNAL_PORT` environment variables in [sample.env](https://github.com/denverquane/automuteus/blob/master/sample.env).
 ```ini
 ...
 [automuteus]
